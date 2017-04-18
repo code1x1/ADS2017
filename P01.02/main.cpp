@@ -11,6 +11,7 @@ int main(void)
 		MyList.InsertFront(i + 1);
 		MyList.InsertBack(i + 100);
 	}
+	
 
 	cout << MyList;
 
@@ -75,6 +76,8 @@ int main(void)
 		cout << "MyList3: Zeiger OK\n";
 	else
 		cout << "MyList3: Zeiger ******Error\n";
-
+	
+	
+	system("PAUSE");
 	return 0;
 }
