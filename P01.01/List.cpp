@@ -11,6 +11,12 @@ List::~List()
 {
 	//( ... löschen Sie alle noch vorhandenen Knoten Node dieser Instanz 
 	//	Denken Sie auch den die Knoten head und tail.)
+	while (head->next != tail)
+	{
+		int k = head->next->key;
+		del(k);
+	}
+	delete head, tail;
 }
 void List::InsertFront(int key)
 {
@@ -81,13 +87,45 @@ bool List::del(int key)
 	//(... Die Methode del sucht den Knoten mit dem Wert Key und löscht diesen
 	//	im Erfolgsfall aus der Liste.
 	//	Im Erfolgsfall geben Sie true zurück, sonst false. )
-	return 1;
+	Node* search = head;
+	while (search->key != key && search != tail)
+	{
+		search = search->next;
+		if (search->key == key) 
+		{
+			Node* prevsearch = search->prev;
+			Node* nextsearch = search->next;
+			prevsearch->next = nextsearch;
+			nextsearch->prev = prevsearch;
+			delete search;
+			_size--;
+			return true;
+		}
+		
+	}
+	search = nullptr;
+	delete search;
+	return false;
 }
 bool List::search(int key)
 {
 	//(... Die Methode search sucht den Knoten mit dem Wert key
 	//	Im Erfolgsfall geben Sie true zurück, sonst false. )
-	return 1;
+	Node* search = head;
+	while (search->key != key && search != tail)
+	{
+		search = search->next;
+		if (search->key == key)
+		{
+			search = nullptr;
+			delete search;
+			return true;
+		}
+		
+	}
+	search = nullptr;
+	delete search;
+	return false;
 }
 bool List::swap(int key1, int key2)
 {
@@ -95,7 +133,52 @@ bool List::swap(int key1, int key2)
 	//	dann den Knoten mit dem Wert key2. Diese Knoten werden dann
 	//	getauscht, indem die Zeiger der Knoten entsprechend geändert
 	//	werden. )
-	return 1;
+	Node* key1n = head;
+	Node* key2n = head;
+	while (key1n->key != key1)
+	{
+		key1n = key1n->next;
+		if (key1n == tail) {
+			key1n = key2n = nullptr;
+			delete key1n, key2n;
+			return false;
+		}
+	}
+
+	while (key2n->key != key2)
+	{
+		key2n = key2n->next;
+		if (key2n == tail) {
+			key1n = key2n = nullptr;
+			delete key1n, key2n;
+			return false;
+		}
+	}
+	Node* key1nprev = key1n->prev;
+	Node* key1nnext = key1n->next;
+	Node* key2nprev = key2n->prev;
+	Node* key2nnext = key2n->next;
+
+	// key1 zeiger verändern
+
+	key1n->next = key2nnext;
+	key1n->prev = key2nprev;
+	key2nnext->prev = key1n;
+	key2nprev->next = key1n;
+
+
+	// key2 zeiger verändern
+
+	key2n->next = key1nnext;
+	key2n->prev = key1nprev;
+	key1nnext->prev = key2n;
+	key1nprev->next = key2n;
+
+	key1n = key2n =
+		key1nprev = key1nnext =
+			key2nprev = key2nnext = nullptr;
+	delete key1n, key2n, key1nprev, key1nnext, key2nprev, key2nnext;
+	return true;
 }
 int List::size(void)
 {
