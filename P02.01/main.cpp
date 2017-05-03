@@ -31,23 +31,17 @@ int main()
 			getline(cin, beschreibung);
 			cout << "Daten ?> ";
 			getline(cin, daten);
-			RingNode* rn = new RingNode();
-			rn->setDescription(beschreibung);
-			rn->setData(daten);
-			if(rp.addNode(rn))
+			if(rp.addNode(beschreibung,daten))
 				cout << "+Ihr Datensatz wurde hinzugefuegt.\n";
 			else
-				cout << "+Ringpuffer voll.\n";
+				cout << "+Datensatz wurde ueberschrieben.\n";
 		}
 		else if (eingabe == 2) {
 			std::string suchen;
 			cout << "+Nach welchen Daten soll gesucht werden?\n";
 			cout << "?> ";
 			getline(cin, suchen);
-			RingNode rn = rp.search(suchen);
-			cout	<< "+ Gefunden in Backup: OldAge " << rn.getAge() 
-					<< ", Beschreibung: " << rn.getDescription() 
-					<< ", Daten: " << rn.getData() << "\n";
+			rp.search(suchen);
 		}
 		else if (eingabe == 3) {
 			rp.print();

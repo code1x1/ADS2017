@@ -1,44 +1,55 @@
 #include "Ringpuffer.h"
 #include <iostream>
 
+using namespace std;
 
 Ringpuffer::Ringpuffer()
 {
-	Anker = new RingNode[N];
-	head = N - 1;
-	tail = 0;
+	Anker = nullptr;
 }
 
 
 Ringpuffer::~Ringpuffer()
 {
-	delete[] Anker;
+	
 }
 
-bool Ringpuffer::addNode(RingNode *rn)
+bool Ringpuffer::addNode(std::string Desc, std::string SymbData)
 {
-	if (!isFull()) {
-		rn->setAge(0);
-		Anker[tail] = *rn;
-		tail = (tail + 1) % N;
-		return true;
+	RingNode* rn = new RingNode();
+	rn->setAge(0);
+	rn->setData(SymbData);
+	rn->setDescription(Desc);
+	rn->setNext(Anker);
+	Anker = rn;
+	RingNode* tmp = Anker;
+	int i = 0;
+	while (tmp == nullptr)
+	{
+		tmp->setAge(i);
+		tmp = tmp->getNext();
 	}
-	return false;
+	return true;
 }
 
-RingNode Ringpuffer::search(std::string Data)
+void Ringpuffer::search(std::string Data)
 {
-	return RingNode();
+	RingNode* tmp = Anker;
+	while (tmp->getData != Data)
+	{
+		if (tmp = nullptr)
+		{
+			cout << "+Datensatz wurde nicht gefunden!.\n";
+			return;
+		}
+		tmp = tmp->getNext();
+	}
+	cout << "+ Gefunden in Backup: OldAge " << tmp->getAge()
+		<< ", Beschreibung: " << tmp->getDescription()
+		<< ", Daten: " << tmp->getData() << "\n";
+
 }
 
 void Ringpuffer::print()
 {
-}
-
-bool Ringpuffer::isFull()
-{
-	if (head == tail) {
-		return true;
-	}
-	return false;
 }

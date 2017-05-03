@@ -3,16 +3,16 @@
 class Ringpuffer
 {
 	RingNode* Anker;
+	RingNode* head;
+	RingNode* tail;
 	const int N = 6;
-	int head;
-	int tail;
 public:
 	Ringpuffer();
 	~Ringpuffer();
-	bool addNode(RingNode*);
-	RingNode search(std::string Data);
+	bool addNode(std::string Desc, std::string SymbData);
+	void search(std::string Data);
 	void print();
-	bool isFull();
+	
 
 };
 

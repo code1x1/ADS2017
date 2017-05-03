@@ -40,3 +40,13 @@ void RingNode::setData(std::string s)
 {
 	SymbolicData = s;
 }
+
+RingNode * RingNode::getNext()
+{
+	return next;
+}
+
+void RingNode::setNext(RingNode * n)
+{
+	next = n;
+}
