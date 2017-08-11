@@ -5,7 +5,8 @@ using namespace std;
 
 Ringpuffer::Ringpuffer()
 {
-	Anker = nullptr;
+	Anker = new RingNode();
+	head = tail = Anker;
 }
 
 
@@ -16,26 +17,19 @@ Ringpuffer::~Ringpuffer()
 
 bool Ringpuffer::addNode(std::string Desc, std::string SymbData)
 {
-	RingNode* rn = new RingNode();
-	rn->setAge(0);
-	rn->setData(SymbData);
-	rn->setDescription(Desc);
-	rn->setNext(Anker);
-	Anker = rn;
-	RingNode* tmp = Anker;
-	int i = 0;
-	while (tmp == nullptr)
+	if (tail == head)		// Ringbuffer ist leer!
 	{
-		tmp->setAge(i);
-		tmp = tmp->getNext();
+		Anker->setAge(0);
+		Anker->setDescription(Desc);
+		Anker->setData(SymbData);
 	}
-	return true;
+
 }
 
 void Ringpuffer::search(std::string Data)
 {
 	RingNode* tmp = Anker;
-	while (tmp->getData != Data)
+	while (tmp->getData() != Data)
 	{
 		if (tmp = nullptr)
 		{
