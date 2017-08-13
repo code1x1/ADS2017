@@ -18,6 +18,13 @@ int main()
 	Ringpuffer rp;
 	print_menu();
 	int eingabe = 0;
+	rp.addNode("erstes Backup", "echtWichtig1");
+	rp.addNode("zweites Backup", "456");
+	rp.addNode("drittes Backup", "789");
+	rp.addNode("viertes Backup", "007");
+	rp.addNode("fuenftes Backup", "1337");
+	rp.addNode("sechstes Backup", "0118999");
+	rp.addNode("siebtes Backup", "7");
 	while (true)
 	{
 		cout << "?>";
@@ -41,6 +48,7 @@ int main()
 			cout << "+Nach welchen Daten soll gesucht werden?\n";
 			cout << "?> ";
 			getline(cin, suchen);
+			cin.ignore();
 			rp.search(suchen);
 		}
 		else if (eingabe == 3) {

@@ -2,6 +2,13 @@
 
 
 
+RingNode::RingNode(int age, std::string desc, std::string symbdata)
+{
+	OldAge = age;
+	Description = desc;
+	SymbolicData = symbdata;
+}
+
 RingNode::RingNode()
 {
 }
@@ -50,3 +57,4 @@ void RingNode::setNext(RingNode * n)
 {
 	next = n;
 }
+

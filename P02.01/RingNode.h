@@ -6,7 +6,9 @@ class RingNode
 	std::string Description;
 	std::string SymbolicData;
 	RingNode* next;
+	RingNode* prev;
 public:
+	RingNode(int age, std::string desc, std::string symbdata);
 	RingNode();
 	~RingNode();
 	int getAge();
